@@ -1,4 +1,5 @@
 class Task < ActiveRecord::Base
+  belongs_to :user
   {
     complete: { completed: true, incomplete: false },
     archived: { archived: true, unarchived: false }
