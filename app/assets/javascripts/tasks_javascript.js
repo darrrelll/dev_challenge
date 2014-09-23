@@ -1,5 +1,3 @@
-
-
 //Controller
 function TaskController(){
 
@@ -8,8 +6,12 @@ function TaskController(){
 TaskController.prototype = {
 	bindEvents: function(){
 		$(document).on('click', '#complete', this.completeTask.bind(this))
+		$(document).on('click', '#complete', this.changeColor.bind(this))
 		$(document).on('click', '.archive', this.archiveTask.bind(this))
 	},
+	changeColor: function(e){
+		$(e.currentTarget.parentElement.parentElement.children).css("background-color", "green");
+    },
 	completeTask: function(e){
 		task_id = e.currentTarget.value
     	$.ajax({
@@ -33,10 +35,3 @@ TaskController.prototype = {
     }
 }
 
-
-// Adding styling for javascript complete color change
-function click_complete(id)
-{
-    var row2Change = document.getElementsByTagName("tr")[id];
-    $(row2Change).children().toggleClass("complete-color");
-}
