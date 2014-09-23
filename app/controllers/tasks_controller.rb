@@ -52,13 +52,23 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to tasks_path, notice: 'Task was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+    #My solution doesn't mesh well with the code below, I'm
+    #not totally famaliar with the syntax in the lines below my code. Ideally,
+    #I'd sent the notice back through ajax to populate in the view
+    @task = Task.find(params[:id])
+    if params[:method] == "complete"
+      @task.update_attribute(:complete, true)
+    elsif params[:method] == "archive"
+      @task.update_attribute(:archived, true)
+    else
+      respond_to do |format|
+        if @task.update(task_params)
+          format.html { redirect_to tasks_path, notice: 'Task was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: 'edit' }
+          format.json { render json: @task.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
