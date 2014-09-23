@@ -8,11 +8,11 @@ class TasksController < ApplicationController
 
     if params.key?('q')
       @archived = nil
-      @query = params['q']
+      query_string = "%#{params['q']}%"
 
       @tasks = Task.where(
-        Task.arel_table[:title].matches(@query).or(
-          Task.arel_table[:description].matches(@query)
+        Task.arel_table[:title].matches(query_string).or(
+          Task.arel_table[:description].matches(query_string)
         )
       )
     else
