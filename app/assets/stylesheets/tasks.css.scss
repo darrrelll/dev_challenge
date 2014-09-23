@@ -2,7 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
 form#new_task, form.edit_task {
   .form-inputs {
     margin-top: 10px;
@@ -27,9 +26,9 @@ a {
   }
 }
 
-.complete-color {
-  background-color: #009933;  
-
+.btns {
+  display:inline;
+  float:right;
 }
 
 
