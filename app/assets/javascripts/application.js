@@ -27,7 +27,4 @@ $(document).ready(function (event) {
 	})
 
 	taskController.bindEvents();
-
-
-
 })

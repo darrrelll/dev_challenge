@@ -5,7 +5,106 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
-</head>
+  
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+		var geocoder;
+		var map;
+		function initialize() {
+		  geocoder = new google.maps.Geocoder();
+		  var latlng = new google.maps.LatLng(33.96, -118.144);
+		  var mapOptions = {
+		    zoom: 10,
+		    center: latlng
+		  }
+		  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+		}
+
+		function codeAddress() {
+			var plot_me = {
+		    visited: [
+		      '5175 W San Fernando Rd, Los Angeles, CA 90039',
+		      '10 Congress Street #202, Pasadena, CA 91105',
+		      '471 W Broadway Ave. #340, Glendale, CA 91204',
+		      '800 S Fairmount Ave. #425,  Pasadena, CA 91105',
+		      '1560 Chevy Chase Dr. #325,  Glendale, CA 91206'
+		    ],
+		    revisit: [
+		      '729 Ivy Street, Glendale, CA 91105',
+		      '2329 W. Rosecrans Ave., Gardena, CA 90249',
+		      '10 Congress Street #300, Pasadena, CA 91105'
+		    ],
+		    unvisited: [
+		      '463 Riverdale Dr, Glendale, CA 91204',
+		      '1560 Chevy Chase Dr. #345, Glendale, CA 91206',
+		      '1138 N Brand Blvd #B, Glendale, CA 91202',
+		      '280 E Colorado Blvd #103, Pasadena, CA 91101',
+		      '800 S Fairmont Avenue #310, Pasadena, CA 91105',
+		      '1141 N Brand Blvd #306, Glendale, CA 91202'
+		    ]
+		  }
+
+		  //I couldn't string interoplate or place a variable 
+		  // in place of icon in the google.maps.Marker, so I used 3 loops for now.
+		  for(i=0; i <= plot_me.visited.length-1; i++){
+		  	var address = plot_me.visited[i]
+			  geocoder.geocode({ 'address': address}, function(results, status) {
+			    if (status == google.maps.GeocoderStatus.OK) {
+			      map.setCenter(results[0].geometry.location);
+			      var marker = new google.maps.Marker({
+			          map: map,
+			          position: results[0].geometry.location,
+			          icon: 'http://www.google.com/intl/en_us/mapfiles/ms/micons/red.png'
+			      });
+			    } else {
+			      alert('Geocode was not successful for the following reason: ' + status);
+			    }
+			  });
+			}
+
+
+			for(i=0; i <= plot_me.revisit.length-1; i++){
+		  	var address = plot_me.revisit[i]
+			  geocoder.geocode({ 'address': address}, function(results, status) {
+			    if (status == google.maps.GeocoderStatus.OK) {
+			      map.setCenter(results[0].geometry.location);
+			      var marker = new google.maps.Marker({
+			          map: map,
+			          position: results[0].geometry.location,
+			          icon:'http://www.google.com/intl/en_us/mapfiles/ms/micons/orange.png'
+			      });
+			    } else {
+			      alert('Geocode was not successful for the following reason: ' + status);
+			    }
+			  });
+			}
+
+
+			for(i=0; i <= plot_me.unvisited.length-1; i++){
+		  	var address = plot_me.unvisited[i]
+			  geocoder.geocode({ 'address': address}, function(results, status) {
+			    if (status == google.maps.GeocoderStatus.OK) {
+			      map.setCenter(results[0].geometry.location);
+			      var marker = new google.maps.Marker({
+			          map: map,
+			          position: results[0].geometry.location,
+			          icon:'http://www.google.com/intl/en_us/mapfiles/ms/micons/green.png'
+			      });
+			    } else {
+			      alert('Geocode was not successful for the following reason: ' + status);
+			    }
+			  });
+			}
+		}
+
+		google.maps.event.addDomListener(window, 'load', initialize);
+ </script>
+ </head>
+
 <body>
 
 <div class='container'>

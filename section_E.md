@@ -14,7 +14,7 @@
 
 **Create** -A task will be created on the server. This the post route. 
 
-**Edit ** -This retrieves an instance from the Task model to be edited. This is the get route.
+**Edit** -This retrieves an instance from the Task model to be edited. This is the get route.
 
 **Update** -This allows an instance from the Task model to be edited on the server. This the post route.
 
