@@ -8,7 +8,7 @@ class DocsControllerTest < ActionController::TestCase
   # end
  #
   #I'm not sure how to test the contents of the .md. 
-  #I could write a test todo this with capybara though.
+  #I tried to write a passing test todo this with capybara though.
   test "readme is successful" do
     get :readme
     assert_response :success
@@ -19,12 +19,11 @@ class DocsControllerTest < ActionController::TestCase
     assert_redirected_to readme_path
   end
 
-end
-
-describe "correct link leads to readme", :type => :feature do
-  it "leads to the correct page" do
-    visit '/'
-    click_link 'the 'Section E' Markdown Document (./section_E.md)'
-    expect(page).to have_content 'Task List Instructions'
+  describe "correct link leads to readme", :type => :feature do
+    it "leads to the correct page" do
+      visit '/'
+      click 'the Markdown Document'
+      expect(page).to have_content 'Task List Instructions'
+    end
   end
 end
