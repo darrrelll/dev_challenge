@@ -14,8 +14,20 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
 $(document).ready(function (event) {
   $(document).trigger('page:load');
-	var taskController = new TaskController()
+	
+  	var task = new Task();
+  	var view = new View();
+
+	var taskController = new TaskController({
+    "task"    : task,
+    "view"    : view
+	})
+
 	taskController.bindEvents();
+
+
+
 })
